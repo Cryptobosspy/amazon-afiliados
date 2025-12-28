@@ -26,3 +26,4 @@ export function LanguageProvider({ children }) {
 }
 
 export const useLang = () => useContext(LanguageContext)
+
