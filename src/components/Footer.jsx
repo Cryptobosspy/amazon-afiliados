@@ -1,9 +1,12 @@
+import { useLang } from "../i18n/LanguageContext"
+
 export default function Footer() {
+  const { t } = useLang()
+
   return (
-    <footer className="text-center text-xs text-gray-500 py-8 mt-16">
-      <p>
-        Como afiliado de Amazon, percibo dinero con las compras elegibles.
-      </p>
+    <footer className="text-xs text-center py-8">
+      {t.legal}
     </footer>
   )
 }
+
