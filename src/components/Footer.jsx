@@ -4,7 +4,7 @@ export default function Footer() {
   const { t } = useLang()
 
   return (
-    <footer className="text-xs text-center py-8">
+    <footer className="text-xs text-center text-gray-500 py-8 mt-16">
       {t.legal}
     </footer>
   )
