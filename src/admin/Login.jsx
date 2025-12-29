@@ -8,10 +8,26 @@ export default function Login({ onLogin }) {
   const handleLogin = async () => {
     const { error } = await supabase.auth.signInWithPassword({
       email,
+import { useState } from "react"
+import { supabase } from "../services/supabase"
+import { useNavigate } from "react-router-dom"
+
+export default function Login() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const navigate = useNavigate()
+
+  const login = async () => {
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
       password
     })
-    if (!error) onLogin()
-    else alert("Login incorrecto")
+
+    if (error) {
+      alert(error.message)
+    } else {
+      navigate("/admin")
+    }
   }
 
   return (
@@ -31,9 +47,10 @@ export default function Login({ onLogin }) {
         onChange={e => setPassword(e.target.value)}
       />
 
-      <button className="amazon-btn w-full" onClick={handleLogin}>
+      <button className="amazon-btn w-full" onClick={login}>
         Entrar
       </button>
     </main>
   )
 }
+
