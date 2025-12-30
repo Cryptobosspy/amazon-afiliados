@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Layout from "./components/Layout"
 import Login from "./admin/Login"
 
 function Home() {
@@ -13,9 +14,13 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/admin" element={<Admin />} />
+
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/admin" element={<Admin />} />
+        </Route>
+
       </Routes>
     </BrowserRouter>
   )

@@ -1,14 +1,20 @@
-import Header from "./Header"
-import Footer from "./Footer"
+import { Outlet } from "react-router-dom"
 
-export default function Layout({ children }) {
+export default function Layout() {
   return (
-    <div className="bg-gray-50 min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-1">
-        {children}
-      </main>
-      <Footer />
+    <div style={{ minHeight: "100vh", padding: 20 }}>
+      <header style={{ marginBottom: 20 }}>
+        <strong>HEADER</strong>
+      </header>
+
+      <Outlet />
+
+      <footer style={{ marginTop: 40 }}>
+        <small>
+          Como afiliado de Amazon, percibo ingresos por compras elegibles.
+        </small>
+      </footer>
     </div>
   )
 }
+
