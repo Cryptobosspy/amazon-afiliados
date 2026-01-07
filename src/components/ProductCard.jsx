@@ -1,42 +1,55 @@
-import { useLang } from "../i18n/LanguageContext"
-
 export default function ProductCard({ product }) {
-  const { t } = useLang()
+  if (!product) return null
+
+  const {
+    title,
+    image,
+    price,
+    badge,
+    affiliate_url,
+  } = product
 
   return (
-    <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition p-4 flex flex-col">
-      <img
-        src={product.image}
-        alt={product.title}
-        className="h-48 object-contain mb-4"
-        loading="lazy"
-      />
+    <article className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col">
+      
+      {/* Imagen */}
+      <div className="relative">
+        {badge && (
+          <span className="absolute top-3 left-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full z-10">
+            {badge}
+          </span>
+        )}
 
-      <h3 className="text-sm font-semibold mb-2 flex-grow">
-        {product.title}
-      </h3>
+        <img
+          src={image}
+          alt={title}
+          loading="lazy"
+          className="w-full h-56 object-contain bg-white p-4"
+        />
+      </div>
 
-      {product.badge && (
-        <span className={`badge mb-2 ${product.badge === "Top" ? "badge-top" : "badge-offer"}`}>
-          {product.badge}
-        </span>
-      )}
+      {/* Contenido */}
+      <div className="flex flex-col flex-1 p-4">
+        <h3 className="text-sm font-semibold text-gray-800 line-clamp-3 mb-2">
+          {title}
+        </h3>
 
-      <p className="text-lg font-bold mb-1">{product.price}</p>
+        {price && (
+          <p className="text-lg font-bold text-green-700 mb-3">
+            {price}
+          </p>
+        )}
 
-      <p className="text-xs text-gray-500 mb-3">
-        {t.lastUpdate}: {product.updated}
-      </p>
-
-      <a
-        href={product.affiliate_url}
-        target="_blank"
-        rel="nofollow sponsored"
-        className="amazon-btn"
-      >
-        {t.ctaAmazon}
-      </a>
-    </div>
+        {/* CTA */}
+        <a
+          href={affiliate_url}
+          target="_blank"
+          rel="nofollow sponsored noopener"
+          className="mt-auto block text-center bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 rounded-xl transition-colors"
+        >
+          Ver oferta en Amazon
+        </a>
+      </div>
+    </article>
   )
 }
-

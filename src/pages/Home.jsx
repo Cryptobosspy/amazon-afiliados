@@ -1,73 +1,53 @@
-import { useEffect, useState } from "react"
-import { supabase } from "../services/supabase"
+import ProductCard from "../components/ProductCard"
+import CategoryGrid from "../components/CategoryGrid"
+import products from "../data/products"
+import top5 from "../data/top5"
 
 export default function Home() {
-  const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const { data, error } = await supabase
-        .from("products")
-        .select("*")
-        .order("created_at", { ascending: false })
-
-      if (!error) setProducts(data)
-      setLoading(false)
-    }
-
-    fetchProducts()
-  }, [])
-
-  if (loading) return <p>Cargando productos...</p>
-
   return (
-    <div>
-      <h1>Ofertas destacadas</h1>
+    <main className="max-w-7xl mx-auto px-4 py-8">
 
-      {products.map((p) => (
-        <div
-          key={p.id}
-          style={{
-            border: "1px solid #ddd",
-            padding: 16,
-            marginBottom: 16
-          }}
-        >
-          {p.image_url && (
-            <img
-              src={p.image_url}
-              alt={p.title}
-              loading="lazy"
-              width="200"
-            />
-          )}
+      {/* HERO */}
+      <section className="mb-12 text-center">
+        <h1 className="text-3xl md:text-4xl font-extrabold mb-4">
+          Las mejores ofertas en Amazon 🔥
+        </h1>
+        <p className="text-gray-600 max-w-2xl mx-auto">
+          Productos seleccionados, comparados y recomendados para comprar mejor.
+        </p>
+      </section>
 
-          <h3>{p.title}</h3>
+      {/* CATEGORÍAS */}
+      <section className="mb-14">
+        <CategoryGrid />
+      </section>
 
-          {p.badge && (
-            <span style={{ color: "red" }}>
-              {p.badge}
-            </span>
-          )}
+      {/* TOP 5 */}
+      <section className="mb-16">
+        <h2 className="text-2xl font-bold mb-6">
+          🏆 Top 5 productos más recomendados
+        </h2>
 
-          {p.price && <p>{p.price}</p>}
-
-          <a
-            href={p.affiliate_url}
-            target="_blank"
-            rel="nofollow sponsored"
-          >
-            Ver precio en Amazon
-          </a>
-
-          <p style={{ fontSize: 12, marginTop: 8 }}>
-            Como afiliado de Amazon, percibo ingresos
-            por compras elegibles.
-          </p>
+        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+          {top5.map(product => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
-      ))}
-    </div>
+      </section>
+
+      {/* OFERTAS */}
+      <section>
+        <h2 className="text-2xl font-bold mb-6">
+          💥 Ofertas destacadas
+        </h2>
+
+        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {products.map(product => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </section>
+
+    </main>
   )
 }
-
