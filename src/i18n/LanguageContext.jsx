@@ -1,18 +1,36 @@
-import { createContext, useState } from "react";
-import { translations } from "./translations"; // 👈 IMPORT CORRECTO
+import { createContext, useContext, useEffect, useState } from "react";
+import { translations } from "./translations";
 
-export const LanguageContext = createContext();
+const LanguageContext = createContext();
 
 export function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState("es");
+  const getInitialLanguage = () => {
+    const saved = localStorage.getItem("language");
+    if (saved) return saved;
 
-  function t(key) {
-    return translations[language]?.[key] || key;
-  }
+    const browserLang = navigator.language?.startsWith("es") ? "es" : "en";
+    return browserLang;
+  };
+
+  const [language, setLanguage] = useState(getInitialLanguage);
+
+  useEffect(() => {
+    localStorage.setItem("language", language);
+  }, [language]);
+
+  const changeLanguage = (lang) => {
+    setLanguage(lang);
+  };
+
+  const t = translations[language];
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, changeLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );
+}
+
+export function useLanguage() {
+  return useContext(LanguageContext);
 }

@@ -1,23 +1,27 @@
-import { useLang } from "../i18n/LanguageContext"
+import { useLanguage } from "../i18n/LanguageContext";
 
 export default function LanguageSwitcher() {
-  const { lang, changeLanguage } = useLang()
+  const { language, changeLanguage } = useLanguage();
 
   return (
-    <div className="flex gap-2 text-sm">
+    <div className="flex gap-2">
       <button
         onClick={() => changeLanguage("es")}
-        className={lang === "es" ? "font-bold" : ""}
+        className={`px-2 py-1 rounded ${
+          language === "es" ? "bg-black text-white" : "bg-gray-200"
+        }`}
       >
         ES
       </button>
-      |
+
       <button
         onClick={() => changeLanguage("en")}
-        className={lang === "en" ? "font-bold" : ""}
+        className={`px-2 py-1 rounded ${
+          language === "en" ? "bg-black text-white" : "bg-gray-200"
+        }`}
       >
         EN
       </button>
     </div>
-  )
+  );
 }

@@ -1,9 +1,9 @@
 import top5 from "../data/top5"
 import TopProductRow from "../components/TopProductRow"
-import { useLang } from "../i18n/LanguageContext"
+import { useLanguage } from "../i18n/LanguageContext";
 
 export default function Top5() {
-  const { t } = useLang()
+  const { t } = useLanguage();
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-10">

@@ -1,37 +1,38 @@
+import { useLanguage } from "../i18n/LanguageContext";
+
 export default function ProductCard({ product }) {
-  const imageUrl = product.image
-    ? product.image
-    : `https://images-na.ssl-images-amazon.com/images/I/${product.asin}.jpg`
+  const { t } = useLanguage();
 
   return (
-    <div className="border rounded-lg p-4 flex flex-col hover:shadow-lg transition">
+    <div className="border rounded-xl shadow-sm p-4 flex flex-col items-center bg-white">
       <img
-        src={imageUrl}
+        src={product.image}
         alt={product.title}
-        className="h-40 object-contain mb-3"
-        loading="lazy"
+        className="w-full h-48 object-contain mb-4"
       />
 
       {product.badge && (
-        <span className="text-xs bg-red-600 text-white px-2 py-1 rounded mb-2 inline-block">
+        <span className="inline-block bg-yellow-400 text-black text-xs font-bold uppercase px-2 py-1 rounded mb-2">
           {product.badge}
         </span>
       )}
 
-      <h3 className="font-semibold text-sm mb-2">{product.title}</h3>
+      <h3 className="text-base font-semibold text-center mb-2">
+        {product.title}
+      </h3>
 
       {product.price && (
-        <p className="text-green-700 font-bold mb-3">{product.price}</p>
+        <p className="text-green-600 font-bold mb-4">{product.price}</p>
       )}
 
       <a
         href={product.affiliate_url}
         target="_blank"
-        rel="nofollow sponsored"
-        className="mt-auto bg-yellow-400 text-center py-2 rounded hover:bg-yellow-500 font-semibold"
+        rel="nofollow sponsored noopener"
+        className="w-full text-center bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition"
       >
-        Ver precio en Amazon
+        {t.buyNow}
       </a>
     </div>
-  )
+  );
 }

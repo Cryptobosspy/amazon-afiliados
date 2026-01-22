@@ -1,14 +1,14 @@
 export const translations = {
   es: {
-    top_products: "Productos Destacados",
-    top_5: "Top 5 Productos",
-    ofertas: "Ofertas",
-    as_affiliate_notice: "Como afiliado de Amazon, percibo dinero con las compras elegibles",
+    buyNow: "Ver precio en Amazon",
+    offers: "Ofertas",
+    topProducts: "Top 5 Productos",
+    legal: "Como afiliado de Amazon, gano con las compras que califican.",
   },
   en: {
-    top_products: "Top Products",
-    top_5: "Top 5 Products",
-    ofertas: "Deals",
-    as_affiliate_notice: "As an Amazon affiliate, I earn from qualifying purchases",
+    buyNow: "Check price on Amazon",
+    offers: "Deals",
+    topProducts: "Top 5 Products",
+    legal: "As an Amazon Associate I earn from qualifying purchases.",
   },
 };
